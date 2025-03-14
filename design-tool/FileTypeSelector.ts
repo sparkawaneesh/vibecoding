@@ -1,0 +1,1 @@
+export type FileType = 'slide' | 'doc' | 'spreadsheet' | 'csv' | 'tsv' | 'image'; 
