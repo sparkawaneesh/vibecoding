@@ -1,18 +1,34 @@
 "use client";
 import { useCodeEditorStore } from "@/store/useCodeEditorStore";
 import { useEffect, useRef, useState } from "react";
-import { LANGUAGE_CONFIG } from "../_constants";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronDownIcon, Lock, Sparkles } from "lucide-react";
 import useMounted from "@/hooks/useMounted";
 
+type LanguageKey = 'javascript' | 'python';
+
+export const LANGUAGE_CONFIG: Record<LanguageKey, { id: string; label: string; monacoLanguage: string; logoPath: string }> = {
+  javascript: {
+    id: "javascript",
+    label: "JavaScript",
+    monacoLanguage: "javascript",
+    logoPath: "/logos/javascript.png",
+  },
+  python: {
+    id: "python",
+    label: "Python",
+    monacoLanguage: "python",
+    logoPath: "/logos/python.png",
+  },
+  // Add other languages here
+};
+
 function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
-  const mounted = useMounted();
-
-  const { language, setLanguage } = useCodeEditorStore();
+  const { language, setLanguage } = useCodeEditorStore() as { language: LanguageKey; setLanguage: (lang: LanguageKey) => void };
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const mounted = useMounted();
   const currentLanguageObj = LANGUAGE_CONFIG[language];
 
   useEffect(() => {
@@ -29,7 +45,7 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
   const handleLanguageSelect = (langId: string) => {
     if (!hasAccess && langId !== "javascript") return;
 
-    setLanguage(langId);
+    setLanguage(langId as LanguageKey);
     setIsOpen(false);
   };
 
