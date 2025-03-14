@@ -2,10 +2,17 @@
 
 import { useCodeEditorStore } from "@/store/useCodeEditorStore";
 import React, { useEffect, useRef, useState } from "react";
-import { THEMES } from "../_constants";
 import { AnimatePresence, motion } from "framer-motion";
 import { CircleOff, Cloud, Github, Laptop, Moon, Palette, Sun } from "lucide-react";
 import useMounted from "@/hooks/useMounted";
+
+export const THEMES = [
+  { id: "vs-dark", label: "Dark", color: "#1e1e1e" },
+  { id: "vs-light", label: "Light", color: "#ffffff" },
+  { id: "github-dark", label: "GitHub Dark", color: "#0d1117" },
+  { id: "monokai", label: "Monokai", color: "#272822" },
+  { id: "solarized-dark", label: "Solarized Dark", color: "#002b36" },
+];
 
 const THEME_ICONS: Record<string, React.ReactNode> = {
   "vs-dark": <Moon className="size-4" />,
